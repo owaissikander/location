@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/table"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import AddDrawer from "@/components/AddDrawer/AddDrawer"
 import AddSubDrawer from "@/components/AddSubDrawer/AddSubDrawer"
 
 const subcategories = [
