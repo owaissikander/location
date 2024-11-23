@@ -1,3 +1,4 @@
+import { getUser } from "@/actions/users"
 import {
     Table,
     TableBody,
@@ -35,11 +36,16 @@ const users = [
 ]
 
 
-export default function Users() {
-
+export default async function Users() {
+    const users = await getUser()
+    console.log("users===->", users);
 
     return (
-        <div>
+        <div className="min-h-screen container mx-auto">
+            <div className="flex justify-between">
+                <h1 className="font-bold text-xl">Users</h1>
+
+            </div>
             <Table>
                 <TableCaption>A list of your recent users.</TableCaption>
                 <TableHeader>
@@ -53,20 +59,20 @@ export default function Users() {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {users.map((user) => (
-                        <TableRow key={user.fullName}>
+                    {users?.users?.map((user) => (
+                        <TableRow key={user.fullname}>
                             <TableCell className="text-right">
                                 <Image
-                                    src={user.profileImage}
+                                    src={user.profileImg}
                                     height={40}
                                     width={40}
                                     className=' rounded-md'
                                 />
                             </TableCell>
 
-                            <TableCell className="font-medium">{user.fullName}</TableCell>
+                            <TableCell className="font-medium">{user.fullname}</TableCell>
                             <TableCell>{user.email}</TableCell>
-                            <TableCell>{user.location}</TableCell>
+                            <TableCell>{user.address}</TableCell>
                             <TableCell>{user.events}</TableCell>
                         </TableRow>
                     ))}

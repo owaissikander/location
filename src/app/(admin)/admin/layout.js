@@ -1,8 +1,15 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Link from "next/link"
+import { auth } from "../../../../auth"
+import { redirect } from "next/navigation";
 
 
-export default function Layout({ children }) {
+export default async function Layout({ children }) {
+    const session = await auth()
+    // console.log("session->", session);
+
+    if (!session) redirect('/signin')
+
     return (
         <html>
             <body>
@@ -16,9 +23,9 @@ export default function Layout({ children }) {
 
                             <TabsTrigger value="users">Users</TabsTrigger>
                         </Link>
-                        <Link href={'/admin/events'}>
+                        <Link href={'/admin/event'}>
 
-                            <TabsTrigger value="events">Events</TabsTrigger>
+                            <TabsTrigger value="event">Events</TabsTrigger>
                         </Link>
                         <Link href={'/admin/categories'}>
 
@@ -32,7 +39,7 @@ export default function Layout({ children }) {
                     </TabsList>
                     <TabsContent value="dashboard">{children}</TabsContent>
                     <TabsContent value="users">{children}</TabsContent>
-                    <TabsContent value="events">{children}</TabsContent>
+                    <TabsContent value="event">{children}</TabsContent>
                     <TabsContent value="categories">{children}</TabsContent>
                     <TabsContent value="subcategories">{children}</TabsContent>
 

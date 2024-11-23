@@ -11,37 +11,19 @@ import {
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import AddDrawer from "@/components/AddDrawer/AddDrawer"
-
-const categories = [
-    {
-        title: "Birthday ",
-        thumbnail: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXZhdGFyfGVufDB8fDB8fHww',
-        description: "Specila surprise for birth",
-
-    },
-    {
-        title: "Cycling ",
-        thumbnail: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXZhdGFyfGVufDB8fDB8fHww',
-        description: "Cycling competition for neighbourhood children",
-
-    },
-    {
-        title: "Pool party",
-        thumbnail: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXZhdGFyfGVufDB8fDB8fHww',
-        description: "all community member will enjoy pool party",
-    },
+import { getCategories } from "@/actions/categories"
 
 
-]
 
 
-export default function Categories() {
+export default async function Categories() {
 
+    const categories = await getCategories()
 
     return (
         <div className="min-h-screen container mx-auto">
             <div className="flex justify-between">
-                <h1>Categories</h1>
+                <h1 className="font-bold text-xl">Categories</h1>
                 <AddDrawer />
             </div>
             <Table>
@@ -54,7 +36,7 @@ export default function Categories() {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {categories.map((category) => (
+                    {categories?.Categories?.map((category) => (
                         <TableRow key={category.title}>
                             <TableCell className="text-right">
                                 <Image

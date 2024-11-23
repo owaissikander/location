@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button"
 
 
 
@@ -9,6 +10,7 @@ export default function Admin(){
             <h1 className="text-bold text-3xl text-center">
                 Admin Page
             </h1>
+            
         </div>
     )
 }
