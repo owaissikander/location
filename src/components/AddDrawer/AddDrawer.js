@@ -1,5 +1,6 @@
 'use client'
-import { useState } from "react"
+import { useRef, useState } from "react"
+import { useToast } from "@/hooks/use-toast"
 
 import { cn } from "@/lib/utils"
 // import { useMediaQuery } from "@/hooks/use-media-query"
@@ -24,6 +25,8 @@ import {
 } from "@/components/ui/drawer"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { uploadImage } from "@/actions/upload"
+import { addCategory } from "@/actions/categories"
 
 export default function AddDrawer() {
   const [open, setOpen] = useState(false)
@@ -71,18 +74,49 @@ export default function AddDrawer() {
   )
 }
 
-function ProfileForm({ className } ) {
+function ProfileForm({ className }) {
+
+
+  const formRef = useRef()
+  const { toast } = useToast()
+  const [loading, setLoading] = useState(false)
+
+
+  const handleAddCategory = async (formData) => {
+
+    let uploadLink = await uploadImage(formData);
+    console.log("uploadLink===->", uploadLink);
+    setLoading(true);
+    const obj = {
+      title: formData.get('title'),
+      description: formData.get('description'),
+      thumbnail: uploadLink
+
+    }
+    await addCategory(obj)
+    toast({
+      title: "Catergory addded successfully",
+    })
+    formRef?.current?.reset()
+    setLoading(false);
+  }
+
+
   return (
-    <form className={cn("grid items-start gap-4", className)}>
+    <form action={handleAddCategory} className={cn("grid items-start gap-4", className)}>
       <div className="grid gap-2">
-        <Label htmlFor="email">Email</Label>
-        <Input type="email" id="email" defaultValue="shadcn@example.com" />
+        <Label htmlFor="title">Title</Label>
+        <Input name='title' required type="title" id="title" placeholder="Sports" />
       </div>
       <div className="grid gap-2">
-        <Label htmlFor="username">Username</Label>
-        <Input id="username" defaultValue="@shadcn" />
+        <Label htmlFor="description">Description</Label>
+        <Input name='description' required id="description" placeholder="about category" />
       </div>
-      <Button type="submit">Save changes</Button>
+      <div className="grid gap-2">
+        <Label htmlFor="thumbnail">Thumbnail</Label>
+        <Input name='thumbnail' required type='file' />
+      </div>
+      <Button disabled={loading} type="submit"> {loading ? "Loading..." : "Add Category"}</Button>
     </form>
   )
 }

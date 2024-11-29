@@ -5,10 +5,10 @@ const { Schema } = mongoose;
 
 const subcategorySchema = new Schema({
 
-    title: String,
+    title: { type: String, require: true },
     description: String,
-    thumbnail: string,
-    category: { type: mongoose.Types.ObjectId, ref: "Categories" }
+    thumbnail: { type: String, require: true },
+    category: { type: mongoose.Types.ObjectId, ref: "Categories", require: true }
 })
 
-export const SubCategoryModel = mongoose.model('SubCategories', subcategorySchema);
+export const SubCategoryModel = mongoose.models.SubCategories || mongoose.model('SubCategories', subcategorySchema);

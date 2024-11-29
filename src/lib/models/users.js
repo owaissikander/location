@@ -13,7 +13,13 @@ const userSchema = new Schema({
         long: Number,
     },
     profileImg: String,
-    address: String
+    address: String,
+    role: {
+        type: String, default: "user",
+        enum: ['user', "Admin"]
+    }
 })
 
-export const userModel = mongoose.models.Users || mongoose.model('Users',  userSchema);
+export const userModel = mongoose.models.Users || mongoose.model('Users', userSchema);
+
+

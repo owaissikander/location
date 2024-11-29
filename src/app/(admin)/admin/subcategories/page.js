@@ -1,4 +1,7 @@
-import { description } from "@/components/BarChart/BarChart"
+import { getSubCategories } from "@/actions/Subcategories"
+import { getCategories } from "@/actions/categories"
+import AddSubDrawer from "@/components/AddSubDrawer/AddSubDrawer"
+import CategoryDropdown from "@/components/CategoryDropdown/CategoryDropdown"
 import {
     Table,
     TableBody,
@@ -9,11 +12,6 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import Image from "next/image"
-import { Button } from "@/components/ui/button"
-import AddSubDrawer from "@/components/AddSubDrawer/AddSubDrawer"
-import { getSubCategories } from "@/actions/Subcategories"
-import { getCategories } from "@/actions/categories"
-import CategoryDropdown from "@/components/CategoryDropdown/CategoryDropdown"
 
 // const subcategories = [
 //     {
@@ -35,19 +33,19 @@ import CategoryDropdown from "@/components/CategoryDropdown/CategoryDropdown"
 // ]
 
 
-export default async function Subcategories({searchParams}) {
-    
+export default async function Subcategories({ searchParams }) {
+
     const subcategories = await getSubCategories(searchParams?.category)
     const categories = (await getCategories()).Categories
-  //  console.log( "categories=-=-=-=->", categories);
-    
+    //  console.log( "categories=-=-=-=->", categories);
+
     return (
         <div className="min-h-screen container mx-auto">
             <div className="flex justify-between">
                 <h1 className="font-bold text-xl">Subcategories</h1>
                 <div className="flex gap-3">
-                    <CategoryDropdown categories={categories}  />
-                    <AddSubDrawer categories = {categories} />
+                    <CategoryDropdown categories={categories} />
+                    <AddSubDrawer categories={categories} />
                 </div>
             </div>
             <Table>
