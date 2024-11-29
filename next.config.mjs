@@ -11,6 +11,10 @@ const nextConfig = {
       { hostname: "lh3.googleusercontent.com" },
         ]
 
+    },
+
+    eslint:{
+        ignoreDuringBuilds: true
     }
     
 

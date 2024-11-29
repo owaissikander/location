@@ -1,9 +1,5 @@
 'use server'
 
-import { ConnectDB } from "@/lib/db/connectDB";
-import { CategoryModel } from "@/lib/models/category";
-import { SubCategoryModel } from "@/lib/models/subcategory";
-import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 
